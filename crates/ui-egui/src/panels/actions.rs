@@ -876,7 +876,7 @@ fn action_context_menu(app: &mut PhotocraftApp, response: &egui::Response, index
             }
         }
         ui.add_enabled_ui(key > 0, |ui| {
-            let command_label = if cfg!(target_os = "macos") { tl!("Command") } else { tl!("Ctrl") };
+            let command_label = if photocraft_engine::APPLE_KEYS { tl!("Command") } else { tl!("Ctrl") };
             let toggled = ui.checkbox(&mut shift, tl!("Shift")).changed() | ui.checkbox(&mut command, command_label).changed();
             if toggled {
                 let _ = assign_shortcut(app, name, &photocraft_engine::atn_cmds::function_key_name(key, shift, command));

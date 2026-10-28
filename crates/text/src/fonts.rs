@@ -968,7 +968,15 @@ pub(crate) fn system_font_dirs() -> Vec<std::path::PathBuf> {
     use std::path::PathBuf;
     let home = std::env::var_os("HOME").map(PathBuf::from);
     let mut v = Vec::new();
-    if cfg!(target_os = "macos") {
+    if cfg!(target_os = "ios") {
+        // The simulator's system files live under its runtime root, not at `/`.
+        let root = std::env::var_os("IPHONE_SIMULATOR_ROOT").map_or_else(|| PathBuf::from("/"), PathBuf::from);
+        v.push(root.join("System/Library/Fonts"));
+        // Fonts the app bundles (`<App>.app/Fonts`).
+        if let Some(bundle) = std::env::current_exe().ok().and_then(|exe| exe.parent().map(|d| d.join("Fonts"))) {
+            v.push(bundle);
+        }
+    } else if cfg!(target_os = "macos") {
         v.push(PathBuf::from("/System/Library/Fonts"));
         v.push(PathBuf::from("/Library/Fonts"));
         if let Some(h) = &home {

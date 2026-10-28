@@ -173,7 +173,7 @@ pub(super) fn keyboard_shortcuts(s: &mut Session, p: &Value) -> Result<Value> {
     }
     if let Some(target) = html_target {
         let v = p.get("summarize").cloned().unwrap_or(Value::Null);
-        let mac = v.get("mac").and_then(Value::as_bool).unwrap_or(cfg!(target_os = "macos"));
+        let mac = v.get("mac").and_then(Value::as_bool).unwrap_or(crate::APPLE_KEYS);
         let mut sections: Vec<crate::shortcut_sets::Section> = Vec::new();
         for crate::shortcut_sets::Bound { label, menu, keys, .. } in crate::shortcut_sets::bound(prefs) {
             match sections.iter_mut().find(|(m, _)| *m == menu) {

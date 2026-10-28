@@ -1,0 +1,5 @@
+module CarterCanvasEngine {
+    header "cartercanvas.h"
+    link "cartercanvas_ios"
+    export *
+}

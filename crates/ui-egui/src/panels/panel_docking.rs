@@ -680,7 +680,7 @@ fn native_input_hook(ctx: &egui::Context) -> impl FnMut(&egui::Context, &mut egu
     let clicks = ctx.data_mut(|data| data.get_temp_mut_or_default::<Clicks>(area_id().with("control-click")).clone());
     move |_, raw| {
         let mut clicks = clicks.lock().unwrap_or_else(|e| e.into_inner());
-        clicks.entry(raw.viewport_id).or_default().normalize(&mut raw.events, cfg!(target_os = "macos"));
+        clicks.entry(raw.viewport_id).or_default().normalize(&mut raw.events, photocraft_engine::APPLE_KEYS);
     }
 }
 

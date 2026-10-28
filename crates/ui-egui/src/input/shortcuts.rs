@@ -48,7 +48,7 @@ pub fn parse(s: &str) -> Option<KeyboardShortcut> {
 /// macOS, `Ctrl+Shift+N` elsewhere). Works for lone keys too: `pretty("Alt")` is `⌥`/`Alt`,
 /// `pretty("Enter")` is `↩`/`Enter`.
 pub fn pretty(s: &str) -> String {
-    let mac = cfg!(target_os = "macos");
+    let mac = photocraft_engine::APPLE_KEYS;
     let mut parts: Vec<&str> = s.split('+').collect();
     if s.ends_with('+') {
         // A final '+' is the Plus key, not an empty component. This matters on

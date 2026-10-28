@@ -673,7 +673,7 @@ fn set_row(
                     None => sections.push((section, vec![row])),
                 }
             }
-            let html = shortcut_sets::summarize(&set_label, &sections, cfg!(target_os = "macos"));
+            let html = shortcut_sets::summarize(&set_label, &sections, photocraft_engine::APPLE_KEYS);
             save_text(app, &format!("{set_label}.html"), html)
         };
         if let Err(e) = result {

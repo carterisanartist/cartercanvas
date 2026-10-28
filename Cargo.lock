@@ -942,6 +942,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "cartercanvas-ios"
+version = "0.16.0"
+dependencies = [
+ "eframe",
+ "egui",
+ "log",
+ "photocraft-automation",
+ "photocraft-codecs",
+ "photocraft-doc",
+ "photocraft-engine",
+ "photocraft-format",
+ "photocraft-io",
+ "photocraft-raster",
+ "photocraft-ui-egui",
+ "pollster 0.4.0",
+ "serde_json",
+]
+
+[[package]]
 name = "cast"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

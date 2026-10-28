@@ -426,7 +426,7 @@ pub(super) fn target_cmd(s: &mut Session, p: &Value) -> Result<Value> {
 }
 
 /// The channel shortcuts' modifier as the platform writes it, for error messages (`⌘4`, `Ctrl+4`).
-pub(super) const SLOT_KEY: &str = if cfg!(target_os = "macos") { "⌘" } else { "Ctrl+" };
+pub(super) const SLOT_KEY: &str = if crate::APPLE_KEYS { "⌘" } else { "Ctrl+" };
 
 /// ⌘2 composite, ⌘3… colour channels then alpha channels (Photoshop CC defaults).
 pub(super) fn target_slot(s: &mut Session, slot: usize) -> Result<Value> {

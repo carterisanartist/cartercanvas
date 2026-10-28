@@ -1,0 +1,41 @@
+[package]
+name = "cartercanvas-ios"
+description = "CarterCanvas for iPhone and iPad: the PhotoCraft engine and interface embedded in a UIKit host through a C ABI"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[features]
+default = ["heif"]
+heif = ["photocraft-codecs/heif"]
+
+# The C ABI module (`src/ffi.rs`) is the only place with `unsafe`; the rest of the crate mirrors
+# `[workspace.lints]`.
+[lints.rust]
+unsafe_code = "deny"
+
+[lints.clippy]
+cognitive_complexity = "deny"
+too_many_arguments = "allow"
+wildcard_imports = "deny"
+dbg_macro = "warn"
+todo = "warn"
+
+[dependencies]
+photocraft-engine = { workspace = true }
+photocraft-io = { workspace = true }
+photocraft-codecs = { workspace = true }
+photocraft-doc = { workspace = true }
+photocraft-format = { workspace = true }
+photocraft-raster = { workspace = true }
+photocraft-ui-egui = { workspace = true }
+photocraft-automation = { workspace = true }
+egui = { workspace = true }
+eframe = { workspace = true, features = ["wgpu"] }
+log = { workspace = true }
+serde_json = { workspace = true }
+pollster = "0.4"

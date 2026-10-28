@@ -392,6 +392,11 @@ pub(crate) fn reveal(path: &str, dry_run: bool) -> Result<Value> {
     if dry_run {
         return Ok(json!({"program": program, "args": args}));
     }
+    if program == SHELL_FILES {
+        let url = args.into_iter().next().ok_or_else(|| other("no folder to show in Files"))?;
+        crate::shell_open::open(url).map_err(other)?;
+        return Ok(json!({"path": path}));
+    }
     ensure_folder(program, &args)?;
     spawn(program, &args)?;
     Ok(json!({"path": path}))
@@ -415,9 +420,16 @@ pub fn reveal_command(path: &str) -> Result<(&'static str, Vec<String>)> {
     reveal_command_on(std::env::consts::OS, path)
 }
 
+/// The "program" of a reveal the app shell performs: iOS opens the Files app at the folder.
+const SHELL_FILES: &str = "files";
+
 /// [`reveal_command`] on the platform `os` (a `std::env::consts::OS` value).
 fn reveal_command_on(os: &str, path: &str) -> Result<(&'static str, Vec<String>)> {
     match os {
+        "ios" => {
+            let parent = std::path::Path::new(path).parent().map_or_else(|| "/".to_string(), |p| p.to_string_lossy().into_owned());
+            Ok((SHELL_FILES, vec![crate::shell_open::files_app_url(&parent)]))
+        }
         // `--` ends the options: a path starting with `-` is not read as one.
         "macos" => Ok(("open", vec!["-R".into(), "--".into(), path.into()])),
         // Explorer splits `/select,` arguments at commas and reads quotes itself, so such a path

@@ -207,6 +207,8 @@ pub(super) fn checked(app: &PhotocraftApp, id: &str) -> Option<bool> {
 pub(crate) fn reveal_label() -> &'static str {
     if cfg!(target_os = "macos") {
         "Reveal in Finder"
+    } else if cfg!(target_os = "ios") {
+        "Show in Files"
     } else if cfg!(windows) {
         "Show in Explorer"
     } else {

@@ -107,7 +107,7 @@ pub fn sticky_mods(app: &PhotocraftApp, mut m: egui::Modifiers) -> egui::Modifie
     m.alt |= s.sticky_alt;
     if s.sticky_command {
         m.command = true;
-        if cfg!(target_os = "macos") {
+        if photocraft_engine::APPLE_KEYS {
             m.mac_cmd = true;
         } else {
             m.ctrl = true;

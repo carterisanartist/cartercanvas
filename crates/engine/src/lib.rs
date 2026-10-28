@@ -7,6 +7,11 @@
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic, clippy::unimplemented, clippy::todo, clippy::unreachable)]
 
+/// Apple keyboard conventions (macOS, and iPadOS/iOS with a hardware keyboard): `Cmd` bindings are
+/// ⌘ rather than Ctrl, shortcuts read `⌘⇧N`, Option-click, and ⌃-click is a secondary click.
+/// Window behaviour (title bars, maximizing) still checks `target_os = "macos"` alone.
+pub const APPLE_KEYS: bool = cfg!(any(target_os = "macos", target_os = "ios"));
+
 pub mod adjust_params;
 mod allocation;
 pub mod build_info;
@@ -16,6 +21,7 @@ mod clip_group;
 mod crop_fill;
 pub mod display_color;
 pub mod doc_path;
+pub mod shell_open;
 pub mod filters;
 pub mod filters_ext;
 mod group_options;

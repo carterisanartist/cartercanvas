@@ -227,8 +227,8 @@ pub(super) fn modifiers_from(p: &Value) -> egui::Modifiers {
     egui::Modifiers {
         shift: flag("shift"),
         alt: flag("alt"),
-        command: if cfg!(target_os = "macos") { command } else { command || ctrl },
-        mac_cmd: cfg!(target_os = "macos") && command,
-        ctrl: if cfg!(target_os = "macos") { ctrl } else { command || ctrl },
+        command: if photocraft_engine::APPLE_KEYS { command } else { command || ctrl },
+        mac_cmd: photocraft_engine::APPLE_KEYS && command,
+        ctrl: if photocraft_engine::APPLE_KEYS { ctrl } else { command || ctrl },
     }
 }

@@ -147,6 +147,9 @@ pub fn reserved_shortcut(sc: &str) -> bool {
     let Some(n) = normalize_shortcut(sc) else { return false };
     let reserved: &[&str] = if cfg!(target_os = "macos") {
         &["Cmd+Tab", "Cmd+Shift+Tab", "Cmd+Alt+Escape", "Cmd+`"]
+    } else if cfg!(target_os = "ios") {
+        // iPadOS: the app switcher, Home, Spotlight, the Dock and screenshots.
+        &["Cmd+Tab", "Cmd+Shift+Tab", "Cmd+H", "Cmd+Space", "Cmd+Alt+D", "Cmd+Shift+3", "Cmd+Shift+4", "Cmd+Shift+5"]
     } else if cfg!(target_os = "windows") {
         &["Alt+Tab", "Alt+Shift+Tab", "Alt+F4", "Cmd+Alt+Delete", "Cmd+Escape", "Cmd+Shift+Escape"]
     } else {
